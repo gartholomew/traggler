@@ -1,0 +1,36 @@
+{
+  "name": "traggler",
+  "version": "0.1.0",
+  "description": "An Electron (because why not) app for tagging and organizing MP3s.",
+  "main": "main.js",
+  "scripts": {
+    "commit": "commit",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gartholomew/traggler.git"
+  },
+  "author": {
+    "name": "James Brown",
+    "email": "garthopotamus@gmail.com",
+    "url": "https://github.com/gartholomew/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gartholomew/traggler/issues"
+  },
+  "homepage": "https://github.com/gartholomew/traggler#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
+    "@commitlint/prompt-cli": "^9.1.2",
+    "electron": "^9.2.1",
+    "husky": "^4.2.5"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
