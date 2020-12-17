@@ -30,6 +30,7 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
+    "node-id3": "^0.2.1",
     "vue": "^3.0.0"
   },
   "devDependencies": {
