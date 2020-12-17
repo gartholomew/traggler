@@ -1,26 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <AlbumInput @albumSelected="onAlbumSelected"/>
+  <TagDisplay v-for="tag in tags" v-bind:tag-name="tag.display" v-bind:key="tag.id"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AlbumInput from "./components/AlbumInput.vue"
+import TagDisplay from "./components/TagDisplay.vue"
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    AlbumInput, TagDisplay
+  },
+  data() {
+    return {
+      tags: [
+        {id: "artist", display: "Artist Name"},
+        {id: "album", display: "Album Title"},
+        {id: "album-artist", display: "Album Artist"},
+        {id: "date", display: "Date"},
+        {id: "genre", display: "Genre"}
+      ]
+    }
+  },
+  methods: {
+    onAlbumSelected(files) {
+      console.log(files);
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
