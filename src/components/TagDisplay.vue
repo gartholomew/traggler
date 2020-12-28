@@ -1,14 +1,15 @@
 <template>
   <div class="hello">
-    <p>{{ tagName }}: {{ tagValue }}</p>
+    <label for="tag">{{ tagName }}:</label>
+    <input id="tag" v-model="tagValue"/>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    "tagName": String,
-    "tagValue": String
+    tagName: String,
+    tagValue: String
   }
 }
 </script>

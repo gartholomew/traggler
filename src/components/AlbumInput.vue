@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <label>Album folder:</label>
-    <input @input="albumSelected" type="file" webkitdirectory/>
+    <label for="album">Album folder:</label>
+    <input id="album" type="file" @input="albumSelected" webkitdirectory/>
   </div>
 </template>
 
