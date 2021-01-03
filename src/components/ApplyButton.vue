@@ -3,19 +3,22 @@
 </template>
 
 <script>
+const Fs = require('fs');
+const Path = require('path');
+
 export default {
   props: {
-    files: FileList
+    files: Array,
+    tags: Object
   },
   methods: {
     copyAlbumToWorkingDirectory() {
-      const fs = require('fs');
-      const path = require('path');
-
-      const baseDir = path.dirname(this.files[0].path);
+      const baseDir = Path.dirname(this.files[0].path);
       const workDir = baseDir + "/traggler";
-      fs.mkdirSync(workDir);
-      this.files.forEach(file => fs.copyFileSync(file.path, `${workDir}/${file.name}`));
+      Fs.mkdirSync(workDir);
+      this.files.forEach(file => {
+        Fs.copyFileSync(file.path, `${workDir}/${file.name}`);
+      });
     }
   }
 }
