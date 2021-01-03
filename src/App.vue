@@ -2,11 +2,12 @@
   <AlbumInput @albumSelected="readTagsFromAlbum"/>
   <TagDisplay
       v-for="tag in displayTags"
-      v-bind:tagName="tag.display"
-      v-bind:tagValue="tag.value"
       v-bind:key="tag.id"
-  />
-  <ApplyButton v-bind:files="tracks.map(t => t.file)" v-bind:tags="displayTags"/>
+      v-bind:tagId="tag.id"
+      v-bind:tagName="tag.display"
+      v-bind:initValue="tag.value"
+      @tagValueUpdated="updateTrackTagValue"/>
+  <ApplyButton v-bind:tracks="tracks"/>
 </template>
 
 <script>
@@ -23,14 +24,14 @@ export default {
   },
   data() {
     return {
-      displayTags: {
-        artist: {display: "Artist Name", value: undefined},
-        album: {display: "Album Title", value: undefined},
-        performerInfo: {display: "Album Artist", value: undefined},
-        year: {display: "Date", value: undefined},
-        partOfSet: {display: "Total Discs", value: undefined},
-        genre: {display: "Genre", value: undefined}
-      },
+      displayTags: [
+        {id: "artist", display: "Artist Name"},
+        {id: "album", display: "Album Title"},
+        {id: "performerInfo", display: "Album Artist"},
+        {id: "year", display: "Date"},
+        {id: "partOfSet", display: "Total Discs"},
+        {id: "genre", display: "Genre"}
+      ],
       tracks: []
     }
   },
@@ -43,11 +44,14 @@ export default {
         const fileTags = NodeID3.read(file.path, {noRaw: true});
         this.tracks.push(new Track(file, fileTags));
       });
-
-      for (let tag in this.displayTags) {
-        const tagValues = this.tracks.map(track => track.tags[tag]);
-        this.displayTags[tag].value = tagValues.reduce((a, b) => a === b ? a : "<< multiple >>");
+      for (let tag of this.displayTags) {
+        tag.value = this.tracks
+            .map(track => track.tags[tag.id])
+            .reduce((a, b) => a === b ? a : "<< multiple >>");
       }
+    },
+    updateTrackTagValue(tagId, newValue) {
+      this.tracks.forEach(t => t.tags[tagId] = newValue);
     }
   }
 }
