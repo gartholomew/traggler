@@ -5,6 +5,7 @@
 <script>
 const Fs = require('fs');
 const NodeID3 = require('node-id3');
+const Numeral = require('numeral');
 const Path = require('path');
 
 export default {
@@ -17,7 +18,7 @@ export default {
       const workDir = Path.join(baseDir, "traggler");
       Fs.mkdirSync(workDir);
       this.tracks.forEach(track => {
-        const destFile = Path.join(workDir, track.file.name); // todo: standardize destination file name
+        const destFile = Path.join(workDir, fileName(track));
 
         // 1. Copy to temp directory (todo: make destination directory a user-defined thing)
         Fs.copyFileSync(track.file.path, destFile);
@@ -30,6 +31,14 @@ export default {
       });
     }
   }
+}
+
+function fileName(track) {
+  const discNumberPrefix = track.tags["partOfSet"] ? `${track.tags["partOfSet"].split("/")[0]}-` : "";
+  const formattedTrackNumber = Numeral(track.tags["trackNumber"]).format("00");
+  const trackTitle = track.tags["title"];
+  const extension = Path.extname(track.file.path);
+  return `${discNumberPrefix}${formattedTrackNumber} ${trackTitle}${extension}`;
 }
 </script>
 

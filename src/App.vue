@@ -29,7 +29,7 @@ export default {
         {id: "album", display: "Album Title"},
         {id: "performerInfo", display: "Album Artist"},
         {id: "year", display: "Date"},
-        {id: "partOfSet", display: "Total Discs"},
+        {id: "partOfSet", display: "Disc"},
         {id: "genre", display: "Genre"}
       ],
       tracks: []
